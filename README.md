@@ -60,3 +60,9 @@ npm run ios
   - If icons render as squares, reinstall the app so fonts are repackaged.
 - iOS
   - If icons don’t appear, make sure pods are installed: `npx pod-install`, then rebuild.
+
+**  #ShortVideo**
+
+https://drive.google.com/file/d/1Cf1jvT5h-lTbabOCVYjqhDwXjr-50OAn/view?usp=sharing
+
+  
