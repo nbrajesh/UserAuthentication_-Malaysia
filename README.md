@@ -7,7 +7,16 @@ UserAuthApp is a React Native CLI (TypeScript) demo that implements Login and Si
 - Validation and helpful error messages on both forms
 - Home screen shows the active user’s name and email, with logout
 - Password visibility toggle using MaterialCommunityIcons
-
+# Authentication Persistence (AsyncStorage)
+- The app keeps you signed in across restarts using AsyncStorage.
+- On launch, the provider reads the current user and gates navigation on a loading flag. See bootstrap in [AuthContext.tsx] and conditional routing in [AppNavigator.tsx]
+- Successful login/signup writes the current user to storage, and logout clears it. See keys and writes in [AuthContext.tsx]
+  - Signup persist: [AuthContext.tsx]
+  - Login persist: [AuthContext.tsx]
+  - Logout clear: [AuthContext.tsx]
+- Storage keys:
+  - Users list: `@users`
+  - Current user: `@current_user`
 # Project Structure
 - src/context/AuthContext.tsx — global auth state and actions
 - src/navigation/AppNavigator.tsx — navigation and conditional stacks
