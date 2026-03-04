@@ -1,97 +1,62 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+UserAuthApp is a React Native CLI (TypeScript) demo that implements Login and Signup flows using React Context API with persisted authentication via AsyncStorage and navigation via React Navigation.
 
-# Getting Started
+# Features (Implemented)
+- Context-based authentication (login, signup, logout) with a single provider
+- Persistence with AsyncStorage to keep the user signed in across restarts
+- React Navigation (native stack) with conditional routing based on auth state
+- Validation and helpful error messages on both forms
+- Home screen shows the active user’s name and email, with logout
+- Password visibility toggle using MaterialCommunityIcons
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+# Project Structure
+- src/context/AuthContext.tsx — global auth state and actions
+- src/navigation/AppNavigator.tsx — navigation and conditional stacks
+- src/screens/LoginScreen.tsx — login form with validation and errors
+- src/screens/SignupScreen.tsx — signup form with validation and errors
+- src/screens/HomeScreen.tsx — user details and logout
 
-## Step 1: Start Metro
+# Prerequisites
+- Follow React Native Environment Setup: https://reactnative.dev/docs/set-up-your-environment
+- iOS: Xcode + CocoaPods; Android: Android Studio + SDKs
+- Node 22+ (see package.json engines)
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+# Install Dependencies
+npm install
+# iOS only
+npx pod-install
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+# Run the App
+Start Metro in one terminal:
 
-```sh
-# Using npm
 npm start
 
-# OR using Yarn
-yarn start
-```
 
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
+Android:
 npm run android
 
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+iOS:
 npm run ios
 
-# OR using Yarn
-yarn ios
-```
+# Notes
+- This demo stores users in AsyncStorage for simplicity; there is no backend.
+- Remove the app and reinstall to clear stored users, or clear app storage from device settings.
+- Password visibility toggles appear on both login and signup screens.
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+# Email Validation
+- Where the error appears
+  - Login and Signup show a clear inline message near the fields if the email is malformed.
+- What “invalid email format” means
+  - The app trims spaces and expects the shape “name@domain.tld”.
+  - Examples accepted: `alice@example.com`, `john.smith+test@sub.domain.co`.
+  - Examples rejected: `alice@`, `alice@.com`, `aliceexample.com`, `alice@domain`, or emails with spaces.
+- How to fix
+  - Edit the email to a valid format and try again. Other issues show descriptive messages like “Please fill all fields.” or “Password must be at least 6 characters.” on Signup, and “Incorrect credentials.” on Login when the email/password pair is wrong.
+- Applies to
+  - Both Login and Signup screens.
 
 # Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- Android
+  - If build fails with AsyncStorage resolution errors, ensure the `allprojects { repositories { maven { url = .../local_repo } } }` block exists in [android/build.gradle]
+  - If icons render as squares, reinstall the app so fonts are repackaged.
+- iOS
+  - If icons don’t appear, make sure pods are installed: `npx pod-install`, then rebuild.

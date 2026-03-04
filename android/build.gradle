@@ -19,3 +19,14 @@ buildscript {
 }
 
 apply plugin: "com.facebook.react.rootproject"
+
+// Ensure AsyncStorage v3 local Maven repo is available for Android
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url uri(project(":react-native-async-storage_async-storage").file("local_repo"))
+        }
+    }
+}
